@@ -11,7 +11,7 @@ def countTrees(columnMove, lineMove):
     lineMoveInc = lineMove
     while lineMoveInc < len(trees):
         numColumns = len(trees[lineMoveInc])
-        if columnMoveInc > numColumns - 1:
+        if columnMoveInc >= numColumns:
             columnMoveInc -= numColumns
         #print(lineMoveInc, columnMoveInc, trees[lineMoveInc][columnMoveInc])
         if trees[lineMoveInc][columnMoveInc] == '#':
