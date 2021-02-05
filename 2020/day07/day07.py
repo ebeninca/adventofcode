@@ -29,8 +29,8 @@ bagsList = set()
 
 def recursiveBagsPart2(currentBag, countBags):
     for idx, line in enumerate(fileLines):
-        rootBags, childBags = line.strip().split("contain")
-        if rootBags.strip().startswith(currentBag):
+        rootBag, childBags = line.strip().split("contain")
+        if rootBag.strip().startswith(currentBag):
             childBags = childBags.strip().split(", ")
             for bag in childBags:
                 if "no other" not in bag:
