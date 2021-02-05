@@ -29,9 +29,11 @@ bagsList = set()
 
 def recursiveBagsPart2(currentBag, countBags):
     for idx, line in enumerate(fileLines):
-        if line.strip().startswith(currentBag + " bags contain"):
-            childBags = line.strip().split("contain")[1].split(", ")
+        rootBags, childBags = line.strip().split("contain")
+        if rootBags.strip().startswith(currentBag):
+            childBags = childBags.strip().split(", ")
             for bag in childBags:
+                #re1 = re.compile("([\d]) ([a-z]+\W[a-z]+)").split(bag.strip())
                 bagAmountList = re.findall("\d*", bag.strip())[0]
                 if len(bagAmountList) > 0:
                     bagAmount = int(bagAmountList[0])
