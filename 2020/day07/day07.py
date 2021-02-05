@@ -33,13 +33,10 @@ def recursiveBagsPart2(currentBag, countBags):
         if rootBags.strip().startswith(currentBag):
             childBags = childBags.strip().split(", ")
             for bag in childBags:
-                #re1 = re.compile("([\d]) ([a-z]+\W[a-z]+)").split(bag.strip())
-                bagAmountList = re.findall("\d*", bag.strip())[0]
-                if len(bagAmountList) > 0:
-                    bagAmount = int(bagAmountList[0])
-                    bagName = bag.strip().split(str(bagAmount))[1]
-                    bagName = bagName.strip().split("bag")[0]
-                    for count in range(bagAmount):
+                if "no other" not in bag:
+                    space, bagAmount, bagName, bagsWord = re.compile(
+                        "([\d]) ([a-z]+\W[a-z]+)").split(bag.strip())
+                    for count in range(int(bagAmount)):
                         countBags += 1
                         print(countBags, idx, " | currentBagx > ", currentBag, "| bagName > ",
                               bagName.strip(), " | line > ", line.strip())
