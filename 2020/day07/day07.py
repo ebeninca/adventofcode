@@ -21,4 +21,29 @@ def recursiveBags(currentBag, countBags):
 
 
 recursiveBags("shiny gold", 0)
-print(len(bagsList), bagsList)
+print("Result Part 1 >>>", len(bagsList), bagsList)
+
+
+bagsList = set()
+
+
+def recursiveBagsPart2(currentBag, countBags):
+    for idx, line in enumerate(fileLines):
+        if line.strip().startswith(currentBag + " bags contain"):
+            childBags = line.strip().split("contain")[1].split(", ")
+            for bag in childBags:
+                bagAmountList = re.findall("\d*", bag.strip())[0]
+                if len(bagAmountList) > 0:
+                    bagAmount = int(bagAmountList[0])
+                    bagName = bag.strip().split(str(bagAmount))[1]
+                    bagName = bagName.strip().split("bag")[0]
+                    for count in range(bagAmount):
+                        countBags += 1
+                        print(countBags, idx, " | currentBagx > ", currentBag, "| bagName > ",
+                              bagName.strip(), " | line > ", line.strip())
+                        countBags = recursiveBagsPart2(
+                            bagName.strip(), countBags)
+    return countBags
+
+
+print("Result Part 2 >>>", recursiveBagsPart2("shiny gold", 0))
