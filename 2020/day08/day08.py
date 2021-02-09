@@ -48,29 +48,29 @@ def process(op, arg, idx, acc):
 
 def processor2():
     for instCount, line in enumerate(insts):
-        opPert, argPert = line.strip().split("\x20")
-        argPert = int(argPert)
+        opCorrupted, argCorrupted = line.strip().split("\x20")
+        argCorrupted = int(argCorrupted)
 
         # correction for infinite loop
-        if opPert == "nop":
-            opPert = "jmp"
-            print("CORRIGINDO ???", opPert, argPert, "|", instCount)
-        elif opPert == "jmp":
-            opPert = "nop"
-            print("CORRIGINDO ???", opPert, argPert, "|", instCount)
+        if opCorrupted == "nop":
+            opCorrupted = "jmp"
+            print("CORRIGINDO ???", opCorrupted, argCorrupted, "|", instCount)
+        elif opCorrupted == "jmp":
+            opCorrupted = "nop"
+            print("CORRIGINDO ???", opCorrupted, argCorrupted, "|", instCount)
         else:
             continue
 
         # realizando modificação na lista
-        perturbed = copy.deepcopy(insts)
-        perturbed[instCount] = opPert + " " + str(argPert)
+        corrupted = copy.deepcopy(insts)
+        corrupted[instCount] = opCorrupted + " " + str(argCorrupted)
         acc = 0
         idx = 0
         pastIdx = set()
 
         # looping de processamento na lista modificada
         while True:
-            op, arg = perturbed[idx].strip().split("\x20")
+            op, arg = corrupted[idx].strip().split("\x20")
             pastIdx.add(idx)
             idx, acc = process(op, int(arg), idx, acc)
 
